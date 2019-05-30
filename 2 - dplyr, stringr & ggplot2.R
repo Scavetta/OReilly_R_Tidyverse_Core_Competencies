@@ -23,86 +23,133 @@
 # Q & A
 ############################################################################################################
 
+# Load packages
 library(tidyverse)
 
-############################################################################################################
-# Exercise: Implementing dplyr
+##################################################################################################################
+# Tidyverse Packages: dplyr
 
-# Analytical problems to solve:
-# In PlantGrowth_wide_2weeks, calculate the mean and standard deviation for 
-# each group (ctrl, trt1, and trt2) for each week
+# Let's imagine that I had another variable in my plant experiment 
+# ID is the week that I did the experiment.
+
+PlantGrowth_wide_2weeks <- read_tsv("data/plants/PlantGrowth_wide_2weeks.txt")
+
+# Exercise: In PlantGrowth_wide_2weeks, calculate the mean and standard 
+# deviation for each group (ctrl, trt1, and trt2) for each week
+# What steps are involved in this calculation?
+___
 
 
-
-
-# In PlantGrowth_wide_2weeks, perform a z-score transformation 
+# Exercise: In PlantGrowth_wide_2weeks, perform a z-score transformation 
 # using the scale() function on each group (ctrl, trt1, and trt2)
 # (disregard week)
+___
 
+# Exercise: Returning to the protein dataframe, 
 
+# A.1) Calculate a log2 transformation on: Ratio.H.M, Ratio.M.L, and Ratio.H.L
+___
 
-# in protein, calculate the mean and standard deviation for 
-# each group (ctrl, trt1, and trt2) for each week
+# A.2) Calculate a z-score transformation on the transofrmed ratio columns
+___
 
+# B) Calculate a log10 transformation on: Intensity.H, Intensity.M, and Intensity.L
+___
 
+# C) Return a table of proteins that have the a z-score and log2 transformed ratio above 2
+___
+
+# D) Return a table of proteins that have the 10 highest Intensity.H
+___
 
 ############################################################################################################
 # Exercise: Using dplyr helper functions and special variants
 
-# Variants of summarise_at() and mutate_at() allow you to use these helper functions 
-# starts_with(x) - names starts with x
-# ends_with(x) - names ends in x
+# summarise_at() and mutate_at() allow you to use these helper functions:
+# starts_with("x") -- Select columns starting with "x"
+# ends_with("x") -- Select columns starting with "x"
 
-# Using protein, perform a log2 transformation on all columns beginning with Ratio, but NOT ending with Sig
+# Exercise: Use the helper functions to perform the above transformations more efficiently: 
 
-# Using protein, perform a log10 transformation on all columns beginning with Int
+# A) Calculate a log2 transformation on all columns beginning with Ratio, but NOT ending with Sig
+___
 
+# B) Calculate a log10 transformation on all columns beginning with Int
+___
 
-############################################################################################################
+##################################################################################################################
+# Tidyverse Packages: stringr
+
+proteinID <- "TBB4_MOUSE"
+
 # Exercise: Using stringr variants
-# str_detect()
-str_detect(protein$Uniprot, "TBB4_MOUSE")
+# A logical vector with TRUE where proteinID is found in the Uniprot variable
+___(___, ___)
 
-# str_extract()
-str_extract(protein$Uniprot, "TBB4_MOUSE")
+# A character vector containing the matched string
+___(___, ___)
 
-# str_locate()
-str_locate(protein$Uniprot, "TBB4_MOUSE")[1:30,]
+# A two-column matrix giving the start and end position of the matching string
+___(___, ___)
 
-# str_match()
-str_match(protein$Uniprot, "T.*E")
+# A character vector giving the matching sequence to the fuzzy regular expression "T.*E"
+___(___, ___)
 
-# str_remove()
-str_remove(protein$Uniprot, "_MOUSE")
-str_remove_all(protein$Uniprot, "_MOUSE")
+# The Uniprot column without _MOUSE
+___(___, ___)
 
-# str_replace()
-str_replace(protein$Uniprot, "_MOUSE", "_HUMAN")
-str_replace_all(protein$Uniprot, "_MOUSE", "_HUMAN")
+# The Uniprot column with _HUMAN instead of _MOUSE
+___(___, ___)
+
+# Exercise: Using the appropriate stringr functions answer the following questions:
+
+# A) Extract only the Ratio columns for the Uniprot IDs GOGA7_MOUSE and PSA6_MOUSE proteins
+___
+
+# B) Keep only the first Uniprot ID (i.e. delete everything after the _)
+___
+
+# C) Keep only protein descriptions that contain the phrase "Ubiquitin"
+___
+
+# D) Does capitalization make a difference in the answer to C, above?
+___
+
+##################################################################################################################
+# Tidyverse Packages: ggplot2
+
+# From the presentation:
+# PlantGrowth is the built-in data set which is equivalent to PlantGrowth_tidy
+
+ggplot(PlantGrowth, aes(x = group, y = weight)) +
+  geom_jitter(width = 0.1)
+
+ggplot(PlantGrowth, aes(x = group, y = weight)) +
+  geom_boxplot(width = 0.1)
+
+# More compact, recycle the base data and aes layers:
+g <- ___(___, ___(x = ___, y = ___))
+
+g +
+  ___(width = 0.1)
+
+g +
+  ___()
+
+# Exercise: Plot PlantGrowth_wide_2weeks. Can we distinguish betweek the two weeks in the plot?
 
 
-# Using the appropriate stringr functions answer the following questions:
 
-# Extract only the Ratio columns and the Uniprot IDs GOGA7_MOUSE and PSA6_MOUSE proteins
-
-# Keep only the first Uniprot ID (i.e. delete everything after the _)
-
-############################################################################################################
 # Exercise: Cleaning up data and plotting
 
-# Here is the average temperature for each day in New York City from 1995 - 2015
+# The file NYNEWYOR.txt contains the average temperature for each day in New York City from 1995 - 2015
 NYC <- read_tsv("data/weather/NYNEWYOR.txt")
 
 # Using the functions we've discussed so far, claculate the average temperature for
 # each month of each year and plot that agains the month. The plot should have multiple lines
 # one for each year
 
-# As a bonus challenge, color the lines according to the year.
-NYC %>% 
-  group_by(year, month) %>%
-  summarise(avg_temp = mean(temp)) %>%
-  ggplot(aes(x = month, y = avg_temp, group = year, col = year == 2015)) +
-  geom_line() +
-  scale_color_manual(values = c("black", "red")) +
-  labs(x = "Month", y = "Average temperature (F)", color = "2016") +
-  theme_classic()
+___
+
+# Exercise**: let all the lines be black, except for 2015, which is red.
+___

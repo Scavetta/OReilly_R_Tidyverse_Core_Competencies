@@ -5,28 +5,25 @@
 # Presentation: Tidyverse solutions
 # Exercise: Identify various paradigms in data analysis workflows
 # Q & A
-# {break, 5 mins}
 ##################################################################################################################
 
+# Clear the workspace
 rm(list = ls())
 
+# Load packages
 library(tidyverse)
-
-
-# tidyr, tibble & readr
-
-
 
 ##################################################################################################################
 # Discussion: Identifying problems with data structure
 
 # In base R:
 protein <- read.delim("data/science/Protein.txt")
-str(protein)
 class(protein)
 
 # What's wrong with this?
 # 1 - Character becomes factor by default
+___(protein)
+
 # 2 - These behave diferently:
 protein[3] # data frame :/
 protein$Peptides # vector
@@ -34,14 +31,16 @@ protein[,3] # vector
 protein[[3]] # vector
 
 # 3 - print to screen is pretty terrible :/
-protein # Short cut for print(protein)
+___ # Short cut for print(protein)
 
-# In the tidyverse:
+##################################################################################################################
+# Tidyverse Packages: readr & tibble
+# Let's try the tidyverse version:
 protein <- read_tsv("data/science/protein.txt")
+class(protein)
 
 # 1 - Character remains character
-glimpse(protein)
-class(protein)
+___(protein)
 
 # 2 - These behave the same way:
 # Return a tibble
@@ -53,37 +52,49 @@ protein$Peptides
 protein[[3]]
 
 # 3 - Lovely print-out to screen
-protein
+___
 
 # But is this data tidy?
 
 # nooo....
 # But at least it has some great variable names :)
+# we'll get back to it later on.
+
+
+##################################################################################################################
+# Tidyverse Packages: tidyr
 
 # Let's take a smaller data set for now:
 
 PlantGrowth_wide <- read_tsv("data/plants/PlantGrowth_wide.txt")
 
-# how would we do the following things to this data set?
+# Exercise: How would we do the following things to this data set?
+# Try to solve the following problems using PlantGrowth_wide
 
-# Plot the weight of each plant, described by it's group
-# Calculate a linear model of the weight described by the group
-# Calculate descriptive statistics of each group
-# Calculate a transformation statistics of each group
+# A) Plot the weight of each plant, described by it's group
+
+# B) Calculate a linear model of the weight described by the group
+
+# C) Calculate descriptive statistics of each group
+
+# D) Calculate a transformation statistics of each group
 
 # All of those things get easier with tidy data!
 PlantGrowth_tidy <- read_tsv("data/plants/PlantGrowth_long.txt")
 
 # So how to go from wide "messy" to long "tidy"?
-# Use gather()
+# Use gather() to convert PlantGrowth_wide to PlantGrowth_tidy
+___ %>% 
+  ___
 
+# Exercise: Let's give it another try
+# Try to solve the following problems using PlantGrowth_tidy
 
+# A) Plot the weight of each plant, described by it's group
 
-# Let's imagine that I had another variable, which was the week that I did the experiment.
-# I'd want to aggregrate across all weeks, but first that is an interesting variable 
-# in the data set:
+# B) Calculate a linear model of the weight described by the group
 
-PlantGrowth_wide_2weeks <- read_tsv("data/plants/PlantGrowth_wide_2weeks.txt")
+# C) Calculate descriptive statistics of each group
 
-# Exercise: Identify various paradigms in data analysis workflows
+# D) Calculate a transformation statistics of each group
 

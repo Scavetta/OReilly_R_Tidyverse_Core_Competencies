@@ -50,7 +50,7 @@ ___
 # A.1) Calculate a log2 transformation on: Ratio.H.M, Ratio.M.L, and Ratio.H.L
 ___
 
-# A.2) Calculate a z-score transformation on the transofrmed ratio columns
+# A.2) Calculate a z-score transformation on the transformed ratio columns
 ___
 
 # B) Calculate a log10 transformation on: Intensity.H, Intensity.M, and Intensity.L

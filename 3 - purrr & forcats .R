@@ -135,6 +135,7 @@ ___
 ___
 
 # D) Reproduce the plot in A, using the mean and the 95% CI instead of the raw values
+# You can use gmodels::ci() or Hmisc::smean.cl.normal(1:100) for the 95% CI
 ___
 
 # E) Calculate an ANCOVA using the following formula: value ~ treatment + time for only RIPK2
